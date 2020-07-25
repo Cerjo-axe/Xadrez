@@ -8,7 +8,7 @@ namespace Xadrez_console {
                 for (int j = 0; j < tab.Colunas; j++) {
 
                     if (tab.ReturnPeca(i, j) == null) {
-                        Console.Write("-  ");
+                        Console.Write("- ");
                     } else {
 
                         Console.Write(tab.ReturnPeca(i, j) + " ");
