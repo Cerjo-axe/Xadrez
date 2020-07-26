@@ -16,7 +16,8 @@ namespace Xadrez_console.xadrez {
         }
 
         private bool Livre(Posicao pos) {
-            return Tab.ReturnPeca(pos) == null;
+            Peca p = Tab.ReturnPeca(pos);
+            return p == null;
         }
 
         public override bool[,] MovimentosPossiveis() {
