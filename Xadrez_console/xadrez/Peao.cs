@@ -1,68 +1,70 @@
 ﻿using tabuleiro;
 
-namespace Xadrez_console.xadrez {
+namespace xadrez {
+
     class Peao : Peca {
-        public Peao(Cor cor, Tabuleiro tab) : base(cor, tab) {
+
+        public Peao(Tabuleiro tab, Cor cor) : base(tab, cor) {
         }
 
         public override string ToString() {
             return "P";
         }
 
-
-        private bool ExisteInimigo(Posicao pos) {
-            Peca p = Tab.ReturnPeca(pos);
-            return p != null && p.Cor != Cor;
+        private bool existeInimigo(Posicao pos) {
+            Peca p = tab.peca(pos);
+            return p != null && p.cor != cor;
         }
 
-        private bool Livre(Posicao pos) {
-            Peca p = Tab.ReturnPeca(pos);
-            return p == null;
+        private bool livre(Posicao pos) {
+            return tab.peca(pos) == null;
         }
 
-        public override bool[,] MovimentosPossiveis() {
-            bool[,] mat = new bool[Tab.Linhas, Tab.Colunas];
+        public override bool[,] movimentosPossiveis() {
+            bool[,] mat = new bool[tab.linhas, tab.colunas];
+
             Posicao pos = new Posicao(0, 0);
 
-            if (Cor == Cor.Branca) {
-                pos.DefinirValores(pos.Linha - 1,pos.Coluna);
-                if(Tab.PosicaoValida(pos) && Livre(pos)) {
-                    mat[pos.Linha, pos.Coluna] = true;
+            if (cor == Cor.Branca) {
+                pos.definirValores(posicao.linha - 1, posicao.coluna);
+                if (tab.posicaoValida(pos) && livre(pos)) {
+                    mat[pos.linha, pos.coluna] = true;
                 }
-                pos.DefinirValores(pos.Linha - 2, pos.Coluna);
-                if (Tab.PosicaoValida(pos) && Livre(pos) && QteMovimentos==0) {
-                    mat[pos.Linha, pos.Coluna] = true;
+                pos.definirValores(posicao.linha - 2, posicao.coluna);
+                Posicao p2 = new Posicao(posicao.linha - 1, posicao.coluna);
+                if (tab.posicaoValida(p2) && livre(p2) && tab.posicaoValida(pos) && livre(pos) && qteMovimentos == 0) {
+                    mat[pos.linha, pos.coluna] = true;
                 }
-                pos.DefinirValores(pos.Linha - 1, pos.Coluna - 1);
-                if (Tab.PosicaoValida(pos) && ExisteInimigo(pos)) {
-                    mat[pos.Linha, pos.Coluna] = true;
+                pos.definirValores(posicao.linha - 1, posicao.coluna - 1);
+                if (tab.posicaoValida(pos) && existeInimigo(pos)) {
+                    mat[pos.linha, pos.coluna] = true;
                 }
-                pos.DefinirValores(pos.Linha - 1, pos.Coluna+1);
-                if (Tab.PosicaoValida(pos) && ExisteInimigo(pos)) {
-                    mat[pos.Linha, pos.Coluna] = true;
+                pos.definirValores(posicao.linha - 1, posicao.coluna + 1);
+                if (tab.posicaoValida(pos) && existeInimigo(pos)) {
+                    mat[pos.linha, pos.coluna] = true;
                 }
-            } else {
-                pos.DefinirValores(pos.Linha +1, pos.Coluna);
-                if (Tab.PosicaoValida(pos) && Livre(pos)) {
-                    mat[pos.Linha, pos.Coluna] = true;
+            }
+            else {
+                pos.definirValores(posicao.linha + 1, posicao.coluna);
+                if (tab.posicaoValida(pos) && livre(pos)) {
+                    mat[pos.linha, pos.coluna] = true;
                 }
-                pos.DefinirValores(pos.Linha + 2, pos.Coluna);
-                if (Tab.PosicaoValida(pos) && Livre(pos) && QteMovimentos == 0) {
-                    mat[pos.Linha, pos.Coluna] = true;
+                pos.definirValores(posicao.linha + 2, posicao.coluna);
+                Posicao p2 = new Posicao(posicao.linha + 1, posicao.coluna);
+                if (tab.posicaoValida(p2) && livre(p2) && tab.posicaoValida(pos) && livre(pos) && qteMovimentos == 0) {
+                    mat[pos.linha, pos.coluna] = true;
                 }
-                pos.DefinirValores(pos.Linha + 1, pos.Coluna - 1);
-                if (Tab.PosicaoValida(pos) && ExisteInimigo(pos)) {
-                    mat[pos.Linha, pos.Coluna] = true;
+                pos.definirValores(posicao.linha + 1, posicao.coluna - 1);
+                if (tab.posicaoValida(pos) && existeInimigo(pos)) {
+                    mat[pos.linha, pos.coluna] = true;
                 }
-                pos.DefinirValores(pos.Linha + 1, pos.Coluna + 1);
-                if (Tab.PosicaoValida(pos) && ExisteInimigo(pos)) {
-                    mat[pos.Linha, pos.Coluna] = true;
+                pos.definirValores(posicao.linha + 1, posicao.coluna + 1);
+                if (tab.posicaoValida(pos) && existeInimigo(pos)) {
+                    mat[pos.linha, pos.coluna] = true;
                 }
             }
 
             return mat;
-
-
         }
     }
 }
